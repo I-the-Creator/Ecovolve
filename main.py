@@ -1,80 +1,85 @@
-import numpy as np
-import matplotlib.pyplot as plt
+import numpy
+import matplotlib.pyplot as plot
 from matplotlib.animation import FuncAnimation
 from matplotlib.widgets import Slider
 
-# Constants
-MAX_DATA_POINTS = 50
+MAX_DATA_POINTS = 200
 
-# Function to initialize the plot
+
 def init_plot():
-    fig = plt.figure()
+    figure = plot.figure()
 
-    # Define the size and position of the graph area
-    graph_area = [0.1, 0.4, 0.8, 0.5]
-    ax1 = fig.add_axes(graph_area)
-    ax1.set_title('Population Over Time')
-    ax1.set_xlabel('Time (Days)')
-    ax1.set_ylabel('Population')
+    graph_x_position = 0.1
+    graph_y_position = 0.4
+    graph_width = 0.8
+    graph_height = 0.5
+    graph_area = [graph_x_position,
+                  graph_y_position, graph_width, graph_height]
 
-    return fig, ax1
+    graph = figure.add_axes(graph_area)
+    graph.set_title('Population Over Time')
+    graph.set_xlabel('Time (Days)')
+    graph.set_ylabel('Population')
 
-# Function to initialize animation data
-def init_animation_data():
-    return [], []
+    return figure, graph
 
-# Function to animate the plot
-def animate(args, x, y, ax1, sliders_with_trend):
-    x.append(args[0])
-    y.append(args[1])
 
-    if len(x) > MAX_DATA_POINTS:
-        x.pop(0)
-        y.pop(0)
-
-    ax1.clear()
-    ax1.fill_between(x, 0, y, color='blue', alpha=0.5)
-    ax1.autoscale(enable=True, axis='both')
-
+def animate(graph, sliders_with_trendlines):
+    graph.clear()
     # Plot trend lines for each slider
-    for slider, trend_data in sliders_with_trend:
+    for slider, trend_data in sliders_with_trendlines:
+
         trend_data['x'].append(len(trend_data['x']))
-        trend_data['y'].append(slider.val)
-        ax1.plot(trend_data['x'], trend_data['y'], linestyle='--', label=trend_data['label'], color=trend_data['color'])
-    ax1.legend()
+        trend_data['y'].append(
+            slider.val*numpy.sin(2 * numpy.pi * 0.01 * trend_data['x'][-1] + numpy.pi/4))
 
-# Function to create and return the animation object
-def create_animation(fig, animate_func, frames, interval):
-    return FuncAnimation(fig, animate_func, frames=frames, interval=interval)
+        if trend_data['x'][-1] - trend_data['x'][0] > MAX_DATA_POINTS:
+            trend_data['x'].pop(0)
+            trend_data['y'].pop(0)
 
-# Main function
+        graph.fill_between(trend_data['x'], 0, trend_data['y'],
+                           label=trend_data['label'], color=trend_data['color'], alpha=0.5)
+        graph.autoscale(enable=True, axis='both')
+    graph.legend()
+
+
+def create_animation(figure, animate_func, frames, interval):
+    return FuncAnimation(figure, animate_func, frames=frames, interval=interval)
+
+
 def main():
-    fig, ax1 = init_plot()
-    x, y = init_animation_data()
+    figure, graph = init_plot()
 
     def frames():
         i = 1
         while True:
-            yield i, np.random.randint(50, 150)
+            yield i
             i += 1
 
     # Define the colors for the trend lines
     trend_line_colors = ['r', 'g', 'b']
-    num_sliders = len(trend_line_colors)
+
+    number_of_sliders = 3
 
     # Create a list of sliders with trend lines
-    sliders_with_trend = []
-    slider_height = 0.03  # Height of each slider
-    spacing = 0.04  # Spacing between sliders
+    sliders_with_trendlines = []
 
-    for i in range(num_sliders):
-        ax_slider = plt.axes([0.15, 0.1 + i * (slider_height + spacing), 0.65, slider_height], facecolor='lightgoldenrodyellow')
-        slider = Slider(ax_slider, f'Slider {i}', 0, 200, valinit=100, valstep=1)
-        sliders_with_trend.append((slider, {'x': [], 'y': [], 'label': f'Slider {i}', 'color': trend_line_colors[i]}))
+    slider_height = 0.03
+    slider_spacing = 0.04
 
-    ani = create_animation(fig, lambda args: animate(args, x, y, ax1, sliders_with_trend), frames=frames, interval=100)
+    for i in range(number_of_sliders):
+        graph_slider = plot.axes([0.15, 0.1 + i * (slider_height + slider_spacing),
+                                 0.65, slider_height], facecolor='lightgoldenrodyellow')
+        slider = Slider(
+            graph_slider, f'Slider {i}', 0, 200, valinit=100, valstep=1)
+        sliders_with_trendlines.append(
+            (slider, {'x': [], 'y': [], 'label': f'Slider {i}', 'color': trend_line_colors[i]}))
 
-    plt.show()
+    animation = create_animation(figure, lambda args: animate(
+        graph, sliders_with_trendlines), frames=frames, interval=100)
+
+    plot.show()
+
 
 if __name__ == "__main__":
     main()
