@@ -18,6 +18,7 @@ def init_plot():
 
     return fig, ax1
 
+
 def init_animation_data():
     return [], []
 
