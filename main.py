@@ -1,5 +1,5 @@
-import numpy as np
-import matplotlib.pyplot as plt
+import numpy
+import matplotlib.pyplot as plot
 from matplotlib.animation import FuncAnimation
 from matplotlib.widgets import Slider
 
@@ -7,43 +7,47 @@ MAX_DATA_POINTS = 200
 
 
 def init_plot():
-    fig = plt.figure()
+    figure = plot.figure()
 
-    graph_area = [0.1, 0.4, 0.8, 0.5]
-    ax1 = fig.add_axes(graph_area)
-    ax1.set_title('Population Over Time')
-    ax1.set_xlabel('Time (Days)')
-    ax1.set_ylabel('Population')
+    graph_x_position = 0.1
+    graph_y_position = 0.4
+    graph_width = 0.8
+    graph_height = 0.5
+    graph_area = [graph_x_position,
+                  graph_y_position, graph_width, graph_height]
 
-    return fig, ax1
+    graph = figure.add_axes(graph_area)
+    graph.set_title('Population Over Time')
+    graph.set_xlabel('Time (Days)')
+    graph.set_ylabel('Population')
+
+    return figure, graph
 
 
-def animate(ax1, sliders_with_trend):
-    ax1.clear()
-    for slider, trend_data in sliders_with_trend:
+def animate(graph, sliders_with_trendlines):
+    graph.clear()
+    # Plot trend lines for each slider
+    for slider, trend_data in sliders_with_trendlines:
 
         trend_data['x'].append(len(trend_data['x']))
-        # trend_data['y'].append(slider.val)
-        trend_data['y'].append((1*np.log(2*trend_data['x'][-1]+1))*slider.val*np.sin(2 * np.pi * 0.1 * trend_data['x'][-1] + np.pi/4))
-        # trend_data['y'].append(
-        #     slider.val*np.sin(2 * np.pi * 0.01 * trend_data['x'][-1] + np.pi/4))
-
+        trend_data['y'].append(
+            slider.val*numpy.sin(2 * numpy.pi * 0.01 * trend_data['x'][-1] + numpy.pi/4))
         if trend_data['x'][-1] - trend_data['x'][0] > MAX_DATA_POINTS:
             trend_data['x'].pop(0)
             trend_data['y'].pop(0)
 
-        ax1.fill_between(trend_data['x'], 0, trend_data['y'],
-                         label=trend_data['label'], color=trend_data['color'], alpha=0.5)
-        ax1.autoscale(enable=True, axis='both')
-    ax1.legend()
+        graph.fill_between(trend_data['x'], 0, trend_data['y'],
+                           label=trend_data['label'], color=trend_data['color'], alpha=0.5)
+        graph.autoscale(enable=True, axis='both')
+    graph.legend()
 
 
-def create_animation(fig, animate_func, frames, interval):
-    return FuncAnimation(fig, animate_func, frames=frames, interval=interval)
+def create_animation(figure, animate_func, frames, interval):
+    return FuncAnimation(figure, animate_func, frames=frames, interval=interval)
 
 
 def main():
-    fig, ax1 = init_plot()
+    figure, graph = init_plot()
 
     def frames():
         i = 1
@@ -52,24 +56,27 @@ def main():
             i += 1
 
     trend_line_colors = ['r', 'g', 'b']
-    num_sliders = len(trend_line_colors)
 
-    sliders_with_trend = []
+    number_of_sliders = 3
+
+    # Create a list of sliders with trend lines
+    sliders_with_trendlines = []
+
     slider_height = 0.03
-    spacing = 0.04
+    slider_spacing = 0.04
 
-    for i in range(num_sliders):
-        ax_slider = plt.axes([0.15, 0.1 + i * (slider_height + spacing),
-                             0.65, slider_height], facecolor='lightgoldenrodyellow')
+    for i in range(number_of_sliders):
+        graph_slider = plot.axes([0.15, 0.1 + i * (slider_height + slider_spacing),
+                                 0.65, slider_height], facecolor='lightgoldenrodyellow')
         slider = Slider(
-            ax_slider, f'Slider {i}', 0, 200, valinit=100, valstep=1)
-        sliders_with_trend.append(
+            graph_slider, f'Slider {i}', 0, 200, valinit=100, valstep=1)
+        sliders_with_trendlines.append(
             (slider, {'x': [], 'y': [], 'label': f'Slider {i}', 'color': trend_line_colors[i]}))
 
-    ani = create_animation(fig, lambda args: animate(
-        ax1, sliders_with_trend), frames=frames, interval=100)
+    animation = create_animation(figure, lambda args: animate(
+        graph, sliders_with_trendlines), frames=frames, interval=100)
 
-    plt.show()
+    plot.show()
 
 
 if __name__ == "__main__":
