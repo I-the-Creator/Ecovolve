@@ -5,6 +5,19 @@ from matplotlib.widgets import Slider
 
 MAX_DATA_POINTS = 200
 
+# TODO: add population growth/decline,
+#       population aging,
+#       population education,
+#       resources available,
+#       immigration,
+#       population psychological trends,
+#       Information dissemination,
+#       Cultural Shifts,
+#       Technological advancement,
+#       Ideological simulation,
+#       Natural Disasters,
+#       Globalisation
+
 
 def init_plot():
     figure = plot.figure()
