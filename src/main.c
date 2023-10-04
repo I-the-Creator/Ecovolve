@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-#define MAX_DATA_POINTS 1000
+#define MAX_DATA_POINTS 100
 #define PI 3.14159
 
 // Function to plot data using Gnuplot
