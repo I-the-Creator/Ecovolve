@@ -4,23 +4,22 @@
 #include <unistd.h>
 
 #define MAX_DATA_POINTS 100
+#define PI 3.14159
 
 // Function to plot data using Gnuplot
-void plotData(FILE *gnuplotPipe, int dataPoints[], int numPoints) {
+void plotData(FILE *gnuplotPipe, double dataPoints[], int numPoints) {
   fprintf(
       gnuplotPipe,
       "plot '-' with filledcurves x1\n"); // Fill between the curve and x1 axis
   for (int i = 0; i < numPoints; i++) {
-    fprintf(gnuplotPipe, "%d\n", dataPoints[i]); // Send data point
+    fprintf(gnuplotPipe, "%f\n", dataPoints[i]); // Send data point
   }
   fprintf(gnuplotPipe, "e\n"); // End of data
   fflush(gnuplotPipe);         // Flush the pipe to update the plot
 }
 
 int main() {
-
   float degree, radian;
-  const float PI = 3.14159;
 
   FILE *gnuplotPipe = popen("gnuplot -persist", "w"); // Open Gnuplot pipe
   if (!gnuplotPipe) {
