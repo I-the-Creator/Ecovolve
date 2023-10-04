@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-#define MAX_DATA_POINTS 100
+#define MAX_DATA_POINTS 1000
 #define PI 3.14159
 
 // Function to plot data using Gnuplot
@@ -32,8 +32,7 @@ int main() {
 
   while (1) {
     // Generate random data (replace this with your data source)
-    double newData =
-        sin(numPoints * 0.001 * PI / 180); // changed from int to double
+    double newData = sin(numPoints * PI / 180); // changed from int to double
     // int newData = rand() % 100;
 
     // Add new data point to the array
