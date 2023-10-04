@@ -44,10 +44,10 @@ def animate(graph, sliders_with_trendlines):
 
         trend_data['x'].append(len(trend_data['x']))
         trend_data['y'].append(
-            
+
             # manipulation with your slider value, you can manipulate using functions
             slider.val*numpy.sin(2 * numpy.pi * 0.01 * trend_data['x'][-1] + numpy.pi/4))
-        
+
         # facilitates continuous graph (last coordinate is deleted to make space for a new one)
         if trend_data['x'][-1] - trend_data['x'][0] > MAX_DATA_POINTS:
             trend_data['x'].pop(0)

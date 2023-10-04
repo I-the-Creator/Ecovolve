@@ -12,12 +12,11 @@ using namespace std;
 //     return 0;
 // }
 
-int main()
-{
-    cout << "Fahrenheit: ";
-    int fahrenheit;
-    cin >> fahrenheit;
-    double celcius = (fahrenheit - 32) / 1.8;
-    cout << celcius;
-    return 0;
+int main() {
+  cout << "Fahrenheit: ";
+  int fahrenheit;
+  cin >> fahrenheit;
+  double celcius = (fahrenheit - 32) / 1.8;
+  cout << celcius;
+  return 0;
 }

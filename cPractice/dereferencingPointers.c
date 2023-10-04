@@ -2,11 +2,10 @@
 #include <stdlib.h>
 
 int main() {
+  int age = 30;
+  int *pAge = &age;
 
-    int age = 30;
-    int * pAge = &age;
-
-    // printf("%p", &pAge);
-    printf("%d", *&*&*&*&*&*&*&*&*&*&pAge);
-    return 0;
+  // printf("%p", &pAge);
+  printf("%d", *&*&*&*&*&*&*&*&*&*&pAge);
+  return 0;
 }

@@ -5,12 +5,12 @@
 double cube(double num);
 
 int main() {
-    printf("Answer: %f", cube(7.0));
+  printf("Answer: %f", cube(7.0));
 
-    return 0;
+  return 0;
 }
 
 double cube(double num) {
-    double result = num * num * num;
-    return result;
+  double result = num * num * num;
+  return result;
 }

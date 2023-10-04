@@ -2,11 +2,10 @@
 #include <stdlib.h>
 
 int main() {
-    
-    int age = 40;
-    double gpa = 3.7;
-    char grade = 'A';
-    char phrase[] = "Giraffe Academy";
+  int age = 40;
+  double gpa = 3.7;
+  char grade = 'A';
+  char phrase[] = "Giraffe Academy";
 
-    return 0;
+  return 0;
 }

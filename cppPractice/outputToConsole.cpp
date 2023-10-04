@@ -2,21 +2,20 @@
 
 using namespace std;
 
-int main()
-{
-    double sales = 95000;
-    cout << "Sales: $" << sales << endl;
+int main() {
+  double sales = 95000;
+  cout << "Sales: $" << sales << endl;
 
-    const double stateTaxRate = 0.04;
-    double stateTax = sales * stateTaxRate;
-    cout << "Sales: $" << stateTax << endl;
-    
-    const double countyTaxRate = 0.02;
-    double countyTax = sales * countyTaxRate;
-    cout << "County Tax: $" << countyTax << endl;
+  const double stateTaxRate = 0.04;
+  double stateTax = sales * stateTaxRate;
+  cout << "Sales: $" << stateTax << endl;
 
-    double totalTax = stateTax + countyTax;
-    cout << "Total Tax: $" << totalTax;
+  const double countyTaxRate = 0.02;
+  double countyTax = sales * countyTaxRate;
+  cout << "County Tax: $" << countyTax << endl;
 
-    return 0;
+  double totalTax = stateTax + countyTax;
+  cout << "Total Tax: $" << totalTax;
+
+  return 0;
 }

@@ -1,11 +1,10 @@
+#include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <math.h>
 
 int main() {
+  const int NUM = 5;
+  printf("%d\n", NUM);
 
-    const int NUM = 5;
-    printf("%d\n", NUM);
-
-    return 0;
+  return 0;
 }
