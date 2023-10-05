@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <gtk-4.0/gtk/gtk.h>
 
 #define MAX_DATA_POINTS 100
 #define PI 3.14159
