@@ -1,0 +1,9 @@
+name = "Ecovolve"
+uuid = "271f93b1-14e0-45e1-a039-cb8b3b05152e"
+authors = ["I-the-Creator", "Lachlan-Ikeguchi <lachlan.ikeguchi@outlook.com>"]
+version = "0.1.0"
+
+[deps]
+Gtk = "4c0ca9eb-093a-5379-98c5-f87ac0bbbf44"
+PackageCompiler = "9b87118b-4619-50d2-8e1e-99f35a4d4d9d"
+Plots = "91a5bcdd-55d7-5caf-9e0b-520d859cae80"
