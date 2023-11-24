@@ -88,5 +88,10 @@
 			"__memory": "cpp",
 			"math.h": "c"
 		}
+	},
+	"extensions": {
+		"recommendations": [
+			"julialang.language-julia"
+		]
 	}
 }
